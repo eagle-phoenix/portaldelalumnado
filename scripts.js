@@ -197,7 +197,7 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
         //const json = await res.json();
         const json = await fetchSheetData(urls.registro);
 	const match = json.find(row => String(row["DNI"]).trim() === dni);
-        }
+        
         if (!match) {
             resultadoDiv.style.display = "block";
             registroElement.innerHTML = `<p style='color:red;'>No se encontró ningún registro para el DNI: ${dni}</p>`;
@@ -214,6 +214,11 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
         registroElement.title = "Haz clic para copiar";
 
 	resultadoDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+	} catch (error) {
+    console.error("Error al obtener los datos:", error);
+    resultadoDiv.style.display = "block";
+    registroElement.innerHTML = `<p style='color:red;'>Se produjo un error al buscar el registro. Intenta nuevamente más tarde.</p>`;
+}
 
         // Evento para copiar al portapapeles
         registroElement.onclick = async () => {
