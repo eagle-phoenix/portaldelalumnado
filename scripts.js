@@ -1,7 +1,29 @@
 const urls = {
-    registro: "https://cpmalcazarcriptana.duckdns.org:5000/datos?tipo=registro",
-    expediente: "https://cpmalcazarcriptana.duckdns.org:5000/datos?tipo=expediente"
+    registro: "https://docs.google.com/spreadsheets/d/1Tw6frDC-fVMQVakK4GxoKaGl7NigvC-FHrWikSR4TyY/gviz/tq?tqx=out:json",
+    expediente: "https://docs.google.com/spreadsheets/d/1QLDsyLfHi60W8COKfGhQhAFCMcQYKhON19gsdYHoj2o/gviz/tq?tqx=out:json"
 };
+
+function fetchSheetData(url) {
+    return fetch(url)
+        .then(res => res.text())
+        .then(text => {
+            const match = text.match(/setResponse\((.*)\);/s);
+            if (!match) throw new Error("No se pudo interpretar la respuesta");
+            const data = JSON.parse(match[1]);
+
+            const headers = data.table.cols.map(col => col.label);
+            const result = data.table.rows.map(row => {
+                const obj = {};
+                row.c.forEach((cell, i) => {
+                    obj[headers[i]] = cell ? cell.v : "";
+                });
+                return obj;
+            });
+
+            return result;
+        });
+}
+
 
 //Script para devolver al usuario los datos asociados al Nº de registro (en la tabla de Admisión):
 document.querySelectorAll("form[data-type]").forEach(form => {
@@ -26,10 +48,11 @@ document.querySelectorAll("form[data-type]").forEach(form => {
         }
 
         try {
-            const res = await fetch(urls[type]);
-            const text = await res.text();
-            const json = JSON.parse(text);
-            const match = json.find(row => String(row["Nº. Registro"]).trim() === userId);
+            //const res = await fetch(urls[type]);
+            //const text = await res.text();
+            //const json = JSON.parse(text);
+            const json = await fetchSheetData(urls[type]);
+	    const match = json.find(row => String(row["Nº. Registro"]).trim() === userId);
 
             if (!match) {
                 resultDiv.innerHTML = `<p style='color:red;'>No se encontraron datos para el ${type}: ${userId}</p>`;
@@ -122,9 +145,10 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
     buscarBtn.textContent = "Buscando...";
 
     try {
-        const res = await fetch(urls.registro);
-        const json = await res.json();
-        const match = json.find(row => String(row["DNI"]).trim() === dni);
+        //const res = await fetch(urls.registro);
+        //const json = await res.json();
+        const json = await fetchSheetData(urls.registro);
+	const match = json.find(row => String(row["DNI"]).trim() === dni);
 
         if (!match) {
             resultadoDiv.style.display = "block";
