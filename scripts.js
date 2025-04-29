@@ -125,7 +125,7 @@ document.querySelectorAll(".pdf-button").forEach(button => {
         generarPDF({
             title: `Portal del Alumnado - ${type === "registro" ? "Proceso de Admisión" : "Horarios Provisionales"}`,
             subtitle: `Consulta realizada el ${new Date().toLocaleDateString("es-ES")}`,
-            tableId: `${type}Result table`,
+            tableId: `${type}Result`,
             nombreArchivo: `${type}-${initials}`
         });
     });
