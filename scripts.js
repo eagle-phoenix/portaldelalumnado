@@ -3,12 +3,7 @@ const urls = {
     expediente: "https://proxy-alumnado-production-41d7.up.railway.app/datos?tipo=expediente"
 };
 
-/*
-function fetchSheetData(url) {
-    return fetch(url)
-        .then(res => res.json());
-}
-*/
+
 function fetchSheetData(url) {
     return fetch(url)
         .then(res => res.json());
