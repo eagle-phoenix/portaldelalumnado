@@ -1,6 +1,6 @@
 const urls = {
-    registro: "https://docs.google.com/spreadsheets/d/1Tw6frDC-fVMQVakK4GxoKaGl7NigvC-FHrWikSR4TyY/gviz/tq?tqx=out:json",
-    expediente: "https://docs.google.com/spreadsheets/d/1QLDsyLfHi60W8COKfGhQhAFCMcQYKhON19gsdYHoj2o/gviz/tq?tqx=out:json"
+    registro: "https://proxy-flask.up.railway.app/datos?tipo=registro",
+    expediente: "https://proxy-flask.up.railway.app/datos?tipo=expediente"
 };
 
 function fetchSheetData(url) {
