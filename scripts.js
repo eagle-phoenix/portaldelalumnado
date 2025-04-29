@@ -149,6 +149,8 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
         registroElement.style.cursor = "pointer";
         registroElement.title = "Haz clic para copiar";
 
+	resultadoDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+
         // Evento para copiar al portapapeles
         registroElement.onclick = async () => {
             try {
@@ -163,6 +165,7 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
 		// Mostrar el botón existente para descargar PDF
 		const downloadBtn = document.getElementById("download-btn");
 		downloadBtn.style.display = "inline-block";
+	    
 
 		// Definir acción al hacer clic en el botón
 		downloadBtn.onclick = () => {
