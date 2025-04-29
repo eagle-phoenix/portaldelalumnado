@@ -193,13 +193,16 @@ tr:last-child td {
 
 /* Estilo para el contenedor de resultado (centrado) */
 .resultado {
-    display: none;  /* Esto se mantiene en el JS para mostrar u ocultar */
-    display: flex;
+    display: block;  /* Esto se mantiene en el JS para mostrar u ocultar */
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+    margin-bottom: 1em; /* Deja un poquito de margen abajo*/
+    height: auto !important; /* La altura automática hace que se ajuste al tamaño de la respuesta */
     text-align: center; /* Alinea el contenido de forma centralizada */
 	padding: 20px; /* Añadimos un poco de espacio alrededor del contenedor */
+}
+#download-btn {
+    margin-top: 0.5em;
 }
 
 /* Estilo para el contenido dentro del contenedor */

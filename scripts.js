@@ -1,28 +1,12 @@
 const urls = {
-    registro: "https://docs.google.com/spreadsheets/d/1Tw6frDC-fVMQVakK4GxoKaGl7NigvC-FHrWikSR4TyY/gviz/tq?tqx=out:json",
-    expediente: "https://docs.google.com/spreadsheets/d/1QLDsyLfHi60W8COKfGhQhAFCMcQYKhON19gsdYHoj2o/gviz/tq?tqx=out:json"
+    registro: "https://proxy-alumnado-production-41d7.up.railway.app/datos?tipo=registro",
+    expediente: "https://proxy-alumnado-production-41d7.up.railway.app/datos?tipo=expediente"
 };
 
 /*
 function fetchSheetData(url) {
     return fetch(url)
-        .then(res => res.text())
-        .then(text => {
-            const match = text.match(/setResponse\((.*)\);/s);
-            if (!match) throw new Error("No se pudo interpretar la respuesta");
-            const data = JSON.parse(match[1]);
-
-            const headers = data.table.cols.map(col => col.label);
-            const result = data.table.rows.map(row => {
-                const obj = {};
-                row.c.forEach((cell, i) => {
-                    obj[headers[i]] = cell ? cell.v : "";
-                });
-                return obj;
-            });
-
-            return result;
-        });
+        .then(res => res.json());
 }
 */
 function fetchSheetData(url) {
@@ -172,6 +156,8 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
         registroElement.style.cursor = "pointer";
         registroElement.title = "Haz clic para copiar";
 
+	resultadoDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+
         // Evento para copiar al portapapeles
         registroElement.onclick = async () => {
             try {
@@ -186,6 +172,7 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
 		// Mostrar el botón existente para descargar PDF
 		const downloadBtn = document.getElementById("download-btn");
 		downloadBtn.style.display = "inline-block";
+	    
 
 		// Definir acción al hacer clic en el botón
 		downloadBtn.onclick = () => {
