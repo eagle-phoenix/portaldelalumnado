@@ -2,12 +2,52 @@ const urls = {
     registro: "https://proxy-alumnado-production-41d7.up.railway.app/datos?tipo=registro",
     expediente: "https://proxy-alumnado-production-41d7.up.railway.app/datos?tipo=expediente"
 };
-
+// Función para buscar los datos de las urls mencionadas más arriba en formato json (desde el proxy)
 function fetchSheetData(url) {
     return fetch(url)
         .then(res => res.json());
 }
 
+// Función para generar PDFs
+function generarPDF({ title = "", subtitle = "", tableId = null, datos = [], nombreArchivo = "documento" }) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const dateStr = new Date().toLocaleDateString("es-ES").replace(/\//g, "-");
+
+    doc.setFontSize(18);
+    doc.text(title, 10, 20);
+    if (subtitle) {
+        doc.setFontSize(12);
+        doc.text(subtitle, 10, 30);
+    }
+
+    let y = subtitle ? 40 : 30;
+
+    // Si se pasa una tabla existente
+    if (tableId) {
+        const table = document.querySelector(`#${tableId}`);
+        if (table) {
+            Array.from(table.rows).forEach((row, idx) => {
+                if (idx > 0) {
+                    const key = row.cells[0].innerText;
+                    const value = row.cells[1].innerText;
+                    doc.text(`${key}: ${value}`, 10, y);
+                    y += 7;
+                }
+            });
+        }
+    }
+
+    // Si se pasan datos directamente
+    if (datos.length > 0) {
+        datos.forEach(({ key, value }) => {
+            doc.text(`${key}: ${value}`, 10, y);
+            y += 7;
+        });
+    }
+
+    doc.save(`${nombreArchivo}-${dateStr}.pdf`);
+}
 
 //Script para devolver al usuario los datos asociados al Nº de registro (en la tabla de Admisión):
 document.querySelectorAll("form[data-type]").forEach(form => {
@@ -32,9 +72,6 @@ document.querySelectorAll("form[data-type]").forEach(form => {
         }
 
         try {
-            //const res = await fetch(urls[type]);
-            //const text = await res.text();
-            //const json = JSON.parse(text);
             const json = await fetchSheetData(urls[type]);
 	    const match = json.find(row => String(row["Nº. Registro"]).trim() === userId);
 
@@ -72,6 +109,32 @@ document.querySelectorAll("form[data-type]").forEach(form => {
 document.querySelectorAll(".pdf-button").forEach(button => {
     button.addEventListener("click", () => {
         const type = button.id.includes("registro") ? "registro" : "expediente";
+        const tableId = `${type}Result`;
+        let initials = type;
+
+        const table = document.querySelector(`#${tableId} table`);
+        if (table) {
+            Array.from(table.rows).forEach(row => {
+                const cells = row.cells;
+                if (cells.length === 2 && cells[0].innerText.toUpperCase().includes("INICIALES")) {
+                    initials = cells[1].innerText.replace(/\./g, "").toUpperCase();
+                }
+            });
+        }
+
+        generarPDF({
+            title: `Portal del Alumnado - ${type === "registro" ? "Proceso de Admisión" : "Horarios Provisionales"}`,
+            subtitle: `Consulta realizada el ${new Date().toLocaleDateString("es-ES")}`,
+            tableId: `${type}Result table`,
+            nombreArchivo: `${type}-${initials}`
+        });
+    });
+});
+
+/* Versión anterior, dedicada solo al formulario que devuelve una tabla con los datos del alumnado.
+document.querySelectorAll(".pdf-button").forEach(button => {
+    button.addEventListener("click", () => {
+        const type = button.id.includes("registro") ? "registro" : "expediente";
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const table = document.querySelector(`#${type}Result table`);
@@ -105,6 +168,7 @@ document.querySelectorAll(".pdf-button").forEach(button => {
         }
     });
 });
+*/
 
 //Script para buscar los números de registro aportando NIE/DNI y devolverlos en pantalla y PDF a demanda
 document.querySelector("#recuperarForm").addEventListener("submit", async (e) => {
@@ -165,8 +229,21 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
 		// Mostrar el botón existente para descargar PDF
 		const downloadBtn = document.getElementById("download-btn");
 		downloadBtn.style.display = "inline-block";
-	    
 
+	    	//Llamada a la función definida arriba (generarPDF)
+	    	downloadBtn.onclick = () => {
+    			generarPDF({
+        			title: "Proceso de admisión 2025-2026",
+        			datos: [
+            				{ key: "Centro", value: "CPM Alcázar de San Juan Campo de Criptana" },
+            				{ key: "Número de registro", value: registro }
+        			],
+        			nombreArchivo: "numero_registro"
+    			});
+		};
+
+	    
+/* esta parte del script imprimía los datos a pdf
 		// Definir acción al hacer clic en el botón
 		downloadBtn.onclick = () => {
 			const { jsPDF } = window.jspdf;
