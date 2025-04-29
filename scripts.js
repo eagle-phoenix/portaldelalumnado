@@ -9,7 +9,9 @@ function fetchSheetData(url) {
 }
 
 // Función para generar PDFs
-function generarPDF({ title = "", subtitle = "", tableId = null, datos = [], nombreArchivo = "documento" }) {
+function generarPDF({ title = "", subtitle = "", tableId = null, datos = [], nombreArchivo = "documento" } = {}) {
+    datos = datos || [];
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const dateStr = new Date().toLocaleDateString("es-ES").replace(/\//g, "-");
