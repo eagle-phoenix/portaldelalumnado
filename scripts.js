@@ -3,28 +3,6 @@ const urls = {
     expediente: "https://proxy-alumnado-production-41d7.up.railway.app/datos?tipo=expediente"
 };
 
-/*
-function fetchSheetData(url) {
-    return fetch(url)
-        .then(res => res.text())
-        .then(text => {
-            const match = text.match(/setResponse\((.*)\);/s);
-            if (!match) throw new Error("No se pudo interpretar la respuesta");
-            const data = JSON.parse(match[1]);
-
-            const headers = data.table.cols.map(col => col.label);
-            const result = data.table.rows.map(row => {
-                const obj = {};
-                row.c.forEach((cell, i) => {
-                    obj[headers[i]] = cell ? cell.v : "";
-                });
-                return obj;
-            });
-
-            return result;
-        });
-}
-*/
 function fetchSheetData(url) {
     return fetch(url)
         .then(res => res.json());
