@@ -41,7 +41,7 @@ function generarPDF({ title = "", subtitle = "", tableId = null, datos = [], nom
     }
 
     // Si se pasan datos directamente
-    if (datos.length > 0) {
+    if (Array.isArray(datos) && datos.length > 0) {
         datos.forEach(({ key, value }) => {
             doc.text(`${key}: ${value}`, 10, y);
             y += 7;
@@ -125,11 +125,12 @@ document.querySelectorAll(".pdf-button").forEach(button => {
         }
 
         generarPDF({
-            title: `Portal del Alumnado - ${type === "registro" ? "Proceso de Admisión" : "Horarios Provisionales"}`,
-            subtitle: `Consulta realizada el ${new Date().toLocaleDateString("es-ES")}`,
-            tableId: `${type}Result`,
-            nombreArchivo: `${type}-${initials}`
-        });
+    title: `Portal del Alumnado - ${type === "registro" ? "Proceso de Admisión" : "Horarios Provisionales"}`,
+    subtitle: `Consulta realizada el ${new Date().toLocaleDateString("es-ES")}`,
+    tableId: `${type}Result`,
+    datos: [], // <-- asegúrate de incluirlo aunque esté vacío
+    nombreArchivo: `${type}-${initials}`
+});
     });
 });
 
