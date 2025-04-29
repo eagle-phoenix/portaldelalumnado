@@ -196,7 +196,7 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
         //const res = await fetch(urls.registro);
         //const json = await res.json();
         const json = await fetchSheetData(urls.registro);
-	const match = json.find(row => String(row["DNI"]).trim() === dni);
+        const match = json.find(row => String(row["DNI"]).trim() === dni);
         
         if (!match) {
             resultadoDiv.style.display = "block";
@@ -213,12 +213,7 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
         registroElement.style.cursor = "pointer";
         registroElement.title = "Haz clic para copiar";
 
-	resultadoDiv.scrollIntoView({ behavior: "smooth", block: "center" });
-	} catch (error) {
-    console.error("Error al obtener los datos:", error);
-    resultadoDiv.style.display = "block";
-    registroElement.innerHTML = `<p style='color:red;'>Se produjo un error al buscar el registro. Intenta nuevamente más tarde.</p>`;
-}
+        resultadoDiv.scrollIntoView({ behavior: "smooth", block: "center" });
 
         // Evento para copiar al portapapeles
         registroElement.onclick = async () => {
@@ -231,48 +226,25 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
             }
         };
 
-		// Mostrar el botón existente para descargar PDF
-		const downloadBtn = document.getElementById("download-btn");
-		downloadBtn.style.display = "inline-block";
+        // Mostrar el botón existente para descargar PDF
+        const downloadBtn = document.getElementById("download-btn");
+        downloadBtn.style.display = "inline-block";
 
-	    	//Llamada a la función definida arriba (generarPDF)
-	    	downloadBtn.onclick = () => {
-    			generarPDF({
-        			title: "Proceso de admisión 2025-2026",
-        			datos: [
-            				{ key: "Centro", value: "CPM Alcázar de San Juan Campo de Criptana" },
-            				{ key: "Número de registro", value: registro }
-        			],
-        			nombreArchivo: "numero_registro"
-    			});
-		};
+        // Llamada a la función definida arriba (generarPDF)
+        downloadBtn.onclick = () => {
+            generarPDF({
+                title: "Proceso de admisión 2025-2026",
+                datos: [
+                    { key: "Centro", value: "CPM Alcázar de San Juan Campo de Criptana" },
+                    { key: "Número de registro", value: registro }
+                ],
+                nombreArchivo: "numero_registro"
+            });
+        };
 
-	    
-/* esta parte del script imprimía los datos a pdf
-		// Definir acción al hacer clic en el botón
-		downloadBtn.onclick = () => {
-			const { jsPDF } = window.jspdf;
-		const doc = new jsPDF();
-		
-		doc.setFontSize(12);
-		doc.text("CPM Alcázar de San Juan Campo de Criptana", 105, 80, null, null, 'center');
-		doc.setFontSize(16);
-		doc.text("Proceso de admisión 2025-2026", 105, 40, null, null, 'center');
-		doc.setFontSize(18);
-		doc.text(`Número de registro: ${registro}`, 105, 60, null, null, 'center');
-
-		doc.save("numero_registro.pdf");
-	};
-
-
-    } catch (err) {
-        console.error("Error:", err);
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
         resultadoDiv.style.display = "block";
-        registroElement.innerHTML = "<p style='color:red;'>Error al consultar los datos. Inténtalo más tarde.</p>";
-    } finally {
-        spinner.style.display = "none";
-        buscarBtn.disabled = false;
-        buscarBtn.textContent = "Buscar";
+        registroElement.innerHTML = `<p style='color:red;'>Se produjo un error al buscar el registro. Intenta nuevamente más tarde.</p>`;
     }
 });
-*/
