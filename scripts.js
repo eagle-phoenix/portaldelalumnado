@@ -9,7 +9,14 @@ function fetchSheetData(url) {
 }
 
 // Función para generar PDFs
-function generarPDF({ title = "", subtitle = "", tableId = null, datos = [], nombreArchivo = "documento" } = {}) {
+function generarPDF(args = {}) {
+    let {
+        title = "",
+        subtitle = "",
+        tableId = null,
+        datos = [],
+        nombreArchivo = "documento"
+    } = args;
     datos = datos || [];
 
     const { jsPDF } = window.jspdf;
@@ -42,7 +49,13 @@ function generarPDF({ title = "", subtitle = "", tableId = null, datos = [], nom
 
     // Si se pasan datos directamente
     if (Array.isArray(datos) && datos.length > 0) {
-        datos.forEach(({ key, value }) => {
+    datos.forEach(({ key, value }) => {
+        doc.text(`${key}: ${value}`, 10, y);
+        y += 7;
+    });
+}
+
+
             doc.text(`${key}: ${value}`, 10, y);
             y += 7;
         });
