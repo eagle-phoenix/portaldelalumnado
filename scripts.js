@@ -49,12 +49,15 @@ function generarPDF(args = {}) {
     }
 
     // Si se pasan datos directamente
-    if (Array.isArray(datos) && datos.length > 0) {
-        datos.forEach(({ key, value }) => {
-            doc.text(`${key}: ${value}`, 10, y);
+    if (Array.isArray(datos)) {
+    datos.forEach(item => {
+        if (item && typeof item.key === "string" && typeof item.value === "string") {
+            doc.text(`${item.key}: ${item.value}`, 10, y);
             y += 7;
-        });
-    }
+        }
+    });
+}
+
 
     doc.save(`${nombreArchivo}-${dateStr}.pdf`);
 }
