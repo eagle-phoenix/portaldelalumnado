@@ -197,7 +197,7 @@ document.querySelector("#recuperarForm").addEventListener("submit", async (e) =>
         //const json = await res.json();
         const json = await fetchSheetData(urls.registro);
 	const match = json.find(row => String(row["DNI"]).trim() === dni);
-
+        }
         if (!match) {
             resultadoDiv.style.display = "block";
             registroElement.innerHTML = `<p style='color:red;'>No se encontró ningún registro para el DNI: ${dni}</p>`;
