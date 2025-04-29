@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<meta content="no-store" http-equiv="Cache-Control">
+		<link href="/styles.css" rel="stylesheet">
+		<link href="favicon.ico" rel="icon" type="image/x-icon">
+		<title>Portal del Alumnado v3.4.29a</title>
+	</head>
+	<body>
+		<header>
+			<img alt="Logo del conservatorio" class="logo" src="logo.jpg">
+			<h1>Portal del Alumnado<br>2025-2026</h1>
+			<p>👋 En este espacio podrás seguir,
+				<strong>en tiempo real</strong>
+				el
+				<strong>proceso de admisión</strong>
+				y
+				<strong>matriculación</strong>📋 del alumnado en nuestro conservatorio.🏫</p>
+		</header>
+		<main>
+			<section class="card">
+				<h2>📝 Admisión del alumnado</h2>
+				<details>
+					<summary>💡 Cómo usar esta página</summary>
+					<p>Una vez formalizada tu <a href="https://cm-alcazarcriptana.centros.castillalamancha.es/anuncios/proceso-de-admisi%C3%B3n-para-el-curso-2025-2026/" target="_blank" rel="noopener noreferrer">solicitud de <strong>admisión</strong></a>, podrás consultar su estado accediendo al 
+						<strong>🔍 Buscador con número de registro</strong>.</p>
+					<p>Este método te será útil durante <strong>todo el proceso de admisión</strong>, aportando la información más relevante 
+						que incluirá las 📅 fechas importantes, calificaciones obtenidas en las pruebas y el <strong>✅ puesto conseguido en el proceso</strong>.</p> 
+					<p>Si no conservas tu número de registro, puedes utilizar la sección
+						<strong>🆔 Recuperación del número de registro</strong>, introduciendo un DNI o NIE válido.</p>
+					<p>Este portal también permitirá consultar el
+						✍️ <strong>proceso de matrículación</strong>
+						para quienes hayan obtenido plaza y consultar los
+						🕒 <strong>horarios de clase</strong>
+						previos al inicio del curso.</p>
+					<p>
+						<strong>🤔 ¿Necesitas más información?</strong>
+					</p>
+					<p>Consulta todos los detalles generales sobre el
+						<strong>Proceso de Admisión 2025-2026</strong>
+						en nuestra <strong>web oficial</strong>: <br>
+						🌐<a href="https://cm-alcazarcriptana.centros.castillalamancha.es/" target="_blank" rel="noopener noreferrer">cm-alcazarcriptana.centros.castillalamancha.es</a>,
+						o si lo prefieres, contacta con nosotros por <strong>teléfono</strong>:<br>
+						<strong>📞 Campo de Criptana:</strong>
+						926 560 743<br>
+						<strong>📞 Alcázar de San Juan:</strong>
+						926 543 012</p>
+					<p>Recuerda que aunque tenemos
+						<strong>dos sedes</strong>, somos
+						<strong>un único centro</strong>, así que estaremos encantados de
+						<strong>atenderte en cualquiera de las localidades</strong>.</p>
+				</details>
+				<details>
+					<summary>🆔 Recuperación del número de registro</summary>
+					<form id="recuperarForm">
+						<label for="dni">Introduce el <strong>DNI o NIE del alumnado</strong> a consultar.</label>
+						<p>En caso de que el alumnado no tenga este documento, introduce el correspondiente al Tutor 1 que se especificó en la solicitud de admisión.</p>
+						<input id="dni" name="dni" placeholder="DNI/NIE" required>
+						<button id="buscarBtn" type="submit">Buscar</button>
+						<div id="dniSpinner" style="display:none; margin-top: 10px;">
+							<span class="loader"></span> Buscando...
+						</div>
+						<div id="resultado" class="resultado" style="display: none;">
+							<div class="contenido">
+								<p>El número de registro solicitado es:</p>
+								<p id="registro" class="registro" title="Toca para copiar"></p>
+								<p class="nota">Toca el nº de registro para copiarlo.</p>
+							</div>
+							<!-- añado botón oculto -->
+							<button id="download-btn" style="display: none;">Descargar PDF</button>
+
+						</div>
+					</form>
+				</details>
+				<details>
+					<summary>🔍 Buscador con número de registro</summary>
+					<p>Introduce tu número de registro 🆔 para conocer el estado de tu solicitud:</p>
+					<form id="registroForm" data-type="registro">
+						<input id="registroId" placeholder="Número de registro" required="">
+						<button type="submit">Buscar</button>
+						<div id="spinner" style="display:none; margin-top: 10px;">
+							<span class="loader"></span> <!--Buscando...-->
+						</div>
+					</form>
+					<div id="registroSpinner" style="display:none; margin-top: 10px;">
+						<span class="loader"></span> Buscando...
+					</div>
+					<div id="registroResult"></div>
+					<div id="registroFechaConsulta" class="fecha-consulta"></div>
+					<div class="button-container">
+						<button class="pdf-button" id="registroPdfButton" style="display:none">Descargar en PDF</button>
+					</div>
+				</details>
+			</section>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+		<script src="scripts.js"></script>
+	</body>
+</html>

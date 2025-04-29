@@ -1,0 +1,268 @@
+/* Versión 3.4.25a - Material Design refinado*/
+
+/* Paleta de colores */
+:root {
+  --dorado: #c5a100;
+  --dorado-claro: #ffe58a;
+  --negro: #1a1a1a;
+  --gris: #f4f4f4;
+  --blanco: #ffffff;
+  --gris-claro: #eaeaea;
+  --gris-medio: #cccccc;
+}
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo general del cuerpo */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--gris);
+  color: var(--negro);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+/* Título principal */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+h1 {
+  font-size: 28px;
+  color: var(--dorado);
+  margin-bottom: 10px;
+}
+header p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Estilo de las tarjetas */
+.card {
+  background-color: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  margin-bottom: 30px;
+}
+
+/* Encabezados de sección */
+.card h2 {
+  color: var(--dorado);
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+/* Menús desplegables tipo "details" */
+details {
+  border: 1px solid var(--dorado-claro);
+  border-radius: 8px;
+  margin: 10px 0;
+  background-color: #fffdf5;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+summary {
+  padding: 12px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  list-style: none;
+  color: var(--negro);
+  background-color: var(--dorado-claro);
+  border-bottom: 1px solid var(--dorado);
+}
+summary:hover {
+  background-color: var(--dorado);
+  color: var(--blanco);
+}
+
+details[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+details p,
+details form,
+details div {
+  padding: 12px 16px;
+}
+
+/* Inputs y botones */
+input,
+button {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+  width: 100%;
+}
+
+input {
+  background-color: var(--blanco);
+}
+
+button {
+  background-color: var(--dorado);
+  color: var(--blanco);
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #a78b00;
+}
+
+/* Tabla de resultados */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+  font-size: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  background-color: var(--blanco);
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--gris-claro);
+}
+
+th {
+  background-color: var(--dorado-claro);
+  color: var(--negro);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+tr:hover {
+  background-color: var(--gris-claro);
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Última fila sin borde */
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Fecha de consulta */
+#registroFechaConsulta {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Botón PDF */
+.button-container {
+  text-align: right;
+  margin-top: 20px;
+}
+#registroPdfButton {
+  width: auto;
+  padding: 10px 20px;
+}
+
+/* Mensajes de error */
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Logo */
+.logo {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 10px auto;
+}
+
+/* Estilo para el contenedor de resultado (centrado) */
+.resultado {
+    display: none;  /* Esto se mantiene en el JS para mostrar u ocultar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+    text-align: center; /* Alinea el contenido de forma centralizada */
+	padding: 20px; /* Añadimos un poco de espacio alrededor del contenedor */
+}
+
+/* Estilo para el contenido dentro del contenedor */
+.contenido {
+    text-align: center;
+	max-width: 600px; /* Limita el ancho para evitar que el texto se vea demasiado largo */
+}
+
+/* Estilo para el número de registro */
+.registro {
+    font-size: 4em;
+	font-weight: bold;  /* Para darle más protagonismo al número */
+	color: #000;  /* Color del texto */
+    cursor: pointer;
+    margin-top: 20px; /* Añadir espacio superior */
+	word-wrap: break-word; /* Permite que el texto se divida si es necesario */
+}
+
+/* Estilo para la nota debajo del número de registro */
+.nota {
+    font-size: 0.8em;
+    font-style: italic;
+    margin-top: 10px; /* Añadir espacio superior */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  input,
+  button {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+  }
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1a73e8;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
