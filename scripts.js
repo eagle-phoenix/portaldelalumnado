@@ -17,6 +17,7 @@ function generarPDF(args = {}) {
         datos = [],
         nombreArchivo = "documento"
     } = args;
+
     datos = datos || [];
 
     const { jsPDF } = window.jspdf;
@@ -49,13 +50,7 @@ function generarPDF(args = {}) {
 
     // Si se pasan datos directamente
     if (Array.isArray(datos) && datos.length > 0) {
-    datos.forEach(({ key, value }) => {
-        doc.text(`${key}: ${value}`, 10, y);
-        y += 7;
-    });
-}
-
-
+        datos.forEach(({ key, value }) => {
             doc.text(`${key}: ${value}`, 10, y);
             y += 7;
         });
@@ -63,6 +58,7 @@ function generarPDF(args = {}) {
 
     doc.save(`${nombreArchivo}-${dateStr}.pdf`);
 }
+
 
 //Script para devolver al usuario los datos asociados al Nº de registro (en la tabla de Admisión):
 document.querySelectorAll("form[data-type]").forEach(form => {
