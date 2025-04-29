@@ -1,6 +1,6 @@
 const urls = {
-    registro: "https://proxy-flask.up.railway.app/datos?tipo=registro",
-    expediente: "https://proxy-flask.up.railway.app/datos?tipo=expediente"
+    registro: "https://proxy-alumnado-production-41d7.up.railway.app/datos?tipo=registro",
+    expediente: "https://proxy-alumnado-production-41d7.up.railway.app/datos?tipo=expediente"
 };
 
 function fetchSheetData(url) {
