@@ -3,6 +3,7 @@ const urls = {
     expediente: "https://docs.google.com/spreadsheets/d/1QLDsyLfHi60W8COKfGhQhAFCMcQYKhON19gsdYHoj2o/gviz/tq?tqx=out:json"
 };
 
+/*
 function fetchSheetData(url) {
     return fetch(url)
         .then(res => res.text())
@@ -23,6 +24,12 @@ function fetchSheetData(url) {
             return result;
         });
 }
+*/
+function fetchSheetData(url) {
+    return fetch(url)
+        .then(res => res.json());
+}
+
 
 
 //Script para devolver al usuario los datos asociados al Nº de registro (en la tabla de Admisión):
